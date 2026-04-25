@@ -224,6 +224,33 @@ app.bulk.batch-size=1000
 
 ---
 
+## Technical Design Decisions
+
+### Bulk Upload — Handling 1,000,000 Records
+
+One of the key challenges in this project was supporting Excel uploads with up to 1,000,000 records without running into memory or timeout issues.
+
+**Problem:**
+The standard Apache POI `WorkbookFactory` loads the entire Excel file into memory at once. A file with 1,000,000 rows can exceed 200MB, causing `OutOfMemoryError` and request timeouts.
+
+**Solution:**
+I used the **Excel Streaming Reader** library (`com.github.pjfanning:excel-streaming-reader`) which reads the Excel file **row by row** using a streaming approach — similar to SAX parsing. This means:
+- Only a small buffer of rows (100 at a time) is kept in memory at any point
+- Memory usage stays constant regardless of file size
+- No timeout issues even for very large files
+
+**Batch Insert with JDBC:**
+Instead of using JPA `save()` for each record (which would mean 1,000,000 individual DB calls), I used **Spring JDBC batch inserts** with a configurable batch size (default: 1,000 records per batch). This reduces DB round-trips from 1,000,000 to just 1,000 — a 1000x improvement in DB performance.
+
+**Upsert Strategy:**
+The bulk upload uses `INSERT ... ON DUPLICATE KEY UPDATE` so that:
+- New customers are **created**
+- Existing customers (matched by NIC) are **updated**
+
+This means the same Excel file can be used for both bulk creation and bulk updates.
+
+---
+
 ## Notes
 
 - Cities and Countries are stored in master data tables and managed via backend only
