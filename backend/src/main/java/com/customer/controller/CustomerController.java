@@ -53,15 +53,6 @@ public class CustomerController {
         return ResponseEntity.noContent().build();
     }
 
-    // @PostMapping("/bulk-upload")
-    // public ResponseEntity<CustomerDto.BulkResult> bulkUpload(
-    //         @RequestParam("file") MultipartFile file) throws IOException {
-    //     if (file.isEmpty()) {
-    //         return ResponseEntity.badRequest().build();
-    //     }
-    //     return ResponseEntity.ok(bulkCustomerService.processBulkUpload(file));
-    // }
-
     @PostMapping("/bulk-upload")
     public ResponseEntity<CustomerDto.BulkResult> bulkUpload(
             @RequestParam("file") MultipartFile file) throws Exception {

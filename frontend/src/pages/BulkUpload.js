@@ -25,25 +25,6 @@ function BulkUpload() {
   const isExcel = (f) =>
     f.name.endsWith('.xlsx') || f.name.endsWith('.xls');
 
-  // const handleUpload = async () => {
-  //   if (!file) { toast.warning('Please select a file first'); return; }
-  //   setLoading(true);
-  //   setResult(null);
-  //   try {
-  //     const res = await bulkUpload(file);
-  //     setResult(res.data);
-  //     if (res.data.errorCount === 0) {
-  //       toast.success(`Successfully processed ${res.data.successCount} customers!`);
-  //     } else {
-  //       toast.warning(`Processed with ${res.data.errorCount} errors`);
-  //     }
-  //   } catch (err) {
-  //     toast.error('Upload failed. Please try again.');
-  //   } finally {
-  //     setLoading(false);
-  //   }
-  // };
-
   const handleUpload = async () => {
     if (!file) { toast.warning('Please select a file first'); return; }
     setLoading(true);
@@ -109,7 +90,6 @@ function BulkUpload() {
             </>
           )}
         </div>
-
 
         {loading && (
           <div style={{ marginTop: '1rem' }}>

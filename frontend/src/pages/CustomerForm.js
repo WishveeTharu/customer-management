@@ -68,14 +68,6 @@ function CustomerForm() {
     }
   };
 
-  // const loadCities = async (countryId) => {
-  //   if (!countryId || citiesMap[countryId]) return;
-  //   try {
-  //     const res = await getCitiesByCountry(countryId);
-  //     setCitiesMap(prev => ({ ...prev, [countryId]: res.data }));
-  //   } catch (err) { }
-  // };
-
   const loadCities = async (countryId) => {
     if (!countryId) return;
     try {
@@ -85,15 +77,6 @@ function CustomerForm() {
       toast.error('Failed to load cities');
     }
   };
-
-  // const validate = () => {
-  //   const errs = {};
-  //   if (!form.name.trim())       errs.name = 'Name is required';
-  //   if (!form.nicNumber.trim())  errs.nicNumber = 'NIC number is required';
-  //   if (!form.dateOfBirth)       errs.dateOfBirth = 'Date of birth is required';
-  //   setErrors(errs);
-  //   return Object.keys(errs).length === 0;
-  // };
 
   const validate = () => {
     const errs = {};
@@ -133,12 +116,6 @@ function CustomerForm() {
 
   // ── Mobile numbers ────────────────────────────────────────────────────────
 
-  // const addMobile = () => {
-  //   if (!mobileInput.trim()) return;
-  //   setForm(f => ({ ...f, mobileNumbers: [...f.mobileNumbers, mobileInput.trim()] }));
-  //   setMobileInput('');
-  // };
-
   const addMobile = () => {
     if (!mobileInput.trim()) return;
     if (!/^\d{10}$/.test(mobileInput.trim())) {
@@ -165,18 +142,6 @@ function CustomerForm() {
   const removeAddress = (index) => {
     setForm(f => ({ ...f, addresses: f.addresses.filter((_, i) => i !== index) }));
   };
-
-  // const updateAddress = (index, field, value) => {
-  //   setForm(f => {
-  //     const addresses = [...f.addresses];
-  //     addresses[index] = { ...addresses[index], [field]: value };
-  //     if (field === 'countryId') {
-  //       addresses[index].cityId = '';
-  //       loadCities(value);
-  //     }
-  //     return { ...f, addresses };
-  //   });
-  // };
 
   const updateAddress = (index, field, value) => {
     setForm(f => {

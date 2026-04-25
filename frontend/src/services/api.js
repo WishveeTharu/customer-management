@@ -2,11 +2,6 @@ import axios from 'axios';
 
 const BASE_URL = 'http://localhost:8080/api';
 
-// const api = axios.create({
-//   baseURL: BASE_URL,
-//   headers: { 'Content-Type': 'application/json' },
-// });
-
 const api = axios.create({
   baseURL: BASE_URL,
   headers: { 'Content-Type': 'application/json' },
@@ -29,14 +24,6 @@ export const updateCustomer = (id, data) =>
 
 export const deleteCustomer = (id) =>
   api.delete(`/customers/${id}`);
-
-// export const bulkUpload = (file) => {
-//   const formData = new FormData();
-//   formData.append('file', file);
-//   return api.post('/customers/bulk-upload', formData, {
-//     headers: { 'Content-Type': 'multipart/form-data' },
-//   });
-// };
 
 export const bulkUpload = (file, onUploadProgress) => {
   const formData = new FormData();
